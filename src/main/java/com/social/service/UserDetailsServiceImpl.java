@@ -1,8 +1,8 @@
-package com.hellokoding.auth.service;
+package com.social.service;
 
-import com.hellokoding.auth.model.Role;
-import com.hellokoding.auth.model.User;
-import com.hellokoding.auth.repository.UserRepository;
+import com.social.model.Role;
+import com.social.model.User;
+import com.social.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -28,7 +28,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         if(user!=null) {
             for (Role role : user.getRoles()) {
-                grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+                grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().name()));
             }
             return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
         }else{

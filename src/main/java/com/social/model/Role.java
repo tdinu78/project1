@@ -1,4 +1,6 @@
-package com.hellokoding.auth.model;
+package com.social.model;
+
+import com.social.enums.RolEnum;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -7,7 +9,7 @@ import java.util.Set;
 @Table(name = "role")
 public class Role {
     private Long id;
-    private String name;
+    private RolEnum roleName;
     private Set<User> users;
 
     @Id
@@ -20,12 +22,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public RolEnum getName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(RolEnum name) {
+        this.roleName = name;
     }
 
     @ManyToMany(mappedBy = "roles")
