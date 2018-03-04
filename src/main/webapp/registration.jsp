@@ -29,7 +29,7 @@
             <div class="col-md-6">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                        <div class="input-group-addon" style="width: 2.6rem"><i class="fa fa-user"></i></div>
+                        <div class="" style="width: 2.6rem"><i class="fa fa-user"></i></div>
                         <form:input type="text" path="username" class="form-control" placeholder="Username"
                                     autofocus="true" name="name"></form:input>
                     </div>
@@ -48,22 +48,24 @@
         <div class="col-md-3">
             <label for="email">E-Mail Address</label>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <div class="input-group mb-2 mr-sm-2 mb-sm-0">
-                    <div class="" style="width: 2.6rem"><i class="fa fa-at"></i></div>
-                    <input type="text" name="email" class="form-control" id="email"
-                           placeholder="you@example.com" required autofocus>
+        <spring:bind path="email">
+            <div class="col-md-6">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                        <div class="" style="width: 2.6rem"><i class="fa fa-at"></i></div>
+                        <form:input type="text" path="email" class="form-control" placeholder="you@example.com"
+                                    name="email" autofocus="true"></form:input>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="">
+            <div class="col-md-3">
+                <div class="">
                     <span class="text-danger align-middle">
-                        <!-- Put e-mail validation error messages here -->
+                           <form:errors path="email"></form:errors>
                     </span>
+                </div>
             </div>
-        </div>
+        </spring:bind>
     </div>
     <div class="row">
         <div class="col-md-4">
