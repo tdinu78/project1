@@ -14,6 +14,7 @@ public class User {
     private String email;
     private String password;
     private String passwordConfirm;
+    private boolean agreedTerms;
     private Set<Role> roles;
     private ZonedDateTime memeberSince;
     private ZonedDateTime lastActive;
@@ -303,5 +304,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isAgreedTerms() {
+        return agreedTerms;
+    }
+
+    public void setAgreedTerms(boolean agreedTerms) {
+        this.agreedTerms = agreedTerms;
     }
 }
