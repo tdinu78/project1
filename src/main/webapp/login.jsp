@@ -25,14 +25,11 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
             <button class="btn btn-lg btn-block btn-primary" type="submit">Log In</button>
-            <a class="p-2 text-primary" href="${contextPath}/registration">Create an account</a>
+            <a class="p-2 text-primary" href="${contextPath}/registration">Inregistrare</a>
         </div>
 
     </form>
 </div>
-<!-- /container -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="${contextPath}/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 <jsp:include page="common/footer.jsp"/>
 </body>
 </html>
