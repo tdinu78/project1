@@ -7,7 +7,7 @@
     <%--<a href="http://www.3xmedia.ro/cookies.html" target="_blank">Afla detalii despre.</a>--%>
     <%--<a href="/prihlaseni/?do=cookieBar-HideBlock">Sunt de acord.</a>--%>
 <%--</div>--%>
-<footer class="footer font-small pt-4 mt-4 border-top bg-white box-shadow">
+<footer class="footer pt-4 mt-4 border-top bg-white box-shadow">
     <div class="container-fluid text-center">
         <p>Este ceva ce nu functioneaza? Daca ai intimpinat vreo eroare,
             <a href="/report/">te rugam sa ne informezi aici.</a></p>
