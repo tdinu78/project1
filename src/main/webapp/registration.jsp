@@ -68,13 +68,22 @@
         </spring:bind>
     </div>
     <div class="row">
-        <div class="col-md-4">
-            <label for="password">Gender</label>
-        </div>
-        <div class="form-group">
-            <input type="radio" name="gender" id="male" tabindex="2" placeholder="Gender"> Male
-            <input type="radio" name="gender" id="female" tabindex="2" placeholder="Gender"> Female
-        </div>
+        <spring:bind path="gender">
+            <div class="col-md-4">
+                <label for="password">Gender</label>
+            </div>
+            <div class="form-group">
+                <form:radiobutton path="gender" value="male" /> Male <form:radiobutton
+                    path="gender" value="female" /> Female
+            </div>
+            <div class="col-md-3">
+                <div class="">
+                        <span class="text-danger align-middle">
+                              <form:errors path="gender"></form:errors>
+                        </span>
+                </div>
+            </div>
+        </spring:bind>
     </div>
     <div class="row">
         <div class="col-md-3">
@@ -122,13 +131,22 @@
         </spring:bind>
     </div>
     <div class="row">
+        <spring:bind path="agreedTerms">
         <div class="col-md-3"></div>
         <div class="checkbox">
             <label>
-                <input id="term" type="checkbox">
+                <form:checkbox path="agreedTerms"/>
                 I have read and accepted  <a target="_blank" href="#">the terms and conditions of use.</a>
             </label>
         </div>
+        <div class="col-md-3">
+            <div class="">
+                <span class="text-danger align-middle">
+                     <form:errors path="agreedTerms"></form:errors>
+                </span>
+            </div>
+        </div>
+        </spring:bind>
     </div>
     <div class="row">
         <div class="col-md-3"></div>

@@ -33,14 +33,22 @@ public class UserValidator implements Validator {
         if (userService.findByEmail(user.getEmail()) != null) {
             errors.rejectValue("email", "Duplicate.userForm.email");
         }
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "gender", "NotEmpty");
+        if (user.getGender()==null || !user.getGender().equals("male") || !user.getGender().equals("female")) {
+            errors.rejectValue("gender", "NotEmpty");
+        }
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
         if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
             errors.rejectValue("password", "Size.userForm.password");
         }
-
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "passwordConfirm", "NotEmpty");
         if (!user.getPasswordConfirm().equals(user.getPassword())) {
             errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+        }
+
+        if (!user.isAgreedTerms()) {
+            errors.rejectValue("agreedTerms", "NotEmpty");
         }
     }
 }
