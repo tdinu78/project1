@@ -16,7 +16,6 @@
 
     <link href="${contextPath}/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -27,8 +26,8 @@
 <body>
 <header>
     <nav class="navbar navbar-expand-md fixed-top bg-white border-bottom box-shadow">
-        <a class="navbar-brand" href="#"><img src="${contextPath}/resources/img/site_logo_1.png" height="30px"
-                                              class="img-responsive"></a>
+        <a class="navbar-brand" href="${contextPath}/"><img src="${contextPath}/resources/img/site_logo_1.png" height="30px"
+                                              class=""></a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <form class="form-inline mt-2 mt-md-0 ml-auto">
                 <input class="form-control-sm" type="text" placeholder="Cauta" aria-label="Search">
@@ -48,14 +47,15 @@
                                                                      class="img-responsive" title="Favorite"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-2 text-primary" href="#">Contul meu</a>
+                    <a class="nav-link p-2 text-primary" href="${contextPath}/login">Contul meu</a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
-<div class="pb-5"></div>
+<div class="pb-5 mb-3"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="${contextPath}/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
+<script src="${contextPath}/resources/fontawesome-5.0.8/js/fontawesome-all.min.js"></script>
 </body>
 </html>
