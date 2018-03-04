@@ -8,25 +8,24 @@
 <html lang="en">
 <head>
 </head>
-<footer class="text-muted border-top bg-white box-shadow">
-    <div class="container-fluid">
-        <div>
-            <p>Acest site foloseste cookie-uri pentru a ajuta la imbunatatirea experientei si functionalitatii.
-            Continuand, iti exprimi acordul asupra folosirii cookie-urilor.
-            <a href="http://www.3xmedia.ro/cookies.html" target="_blank">Afla detalii despre.</a>
-            <a class="ajax nette-cookie-bar-button" href="/?do=cookieBar-HideBlock">Sunt de acord.</a>
-            </p>
-        </div>
-        <noscript><style>.nette-cookie-bar { display: none; }</style></noscript>
-        <p>Este ceva ce nu funcționeaza? Daca ai intimpinat vreo eroare,
+<%--<div class="cookie-bar">--%>
+    <%--Acest site foloseste cookie-uri pentru a ajuta la imbunatatirea experientei si functionalitatii. Continuand, iti exprimi acordul asupra folosirii cookie-urilor.--%>
+    <%--<a href="http://www.3xmedia.ro/cookies.html" target="_blank">Afla detalii despre.</a>--%>
+    <%--<a href="/prihlaseni/?do=cookieBar-HideBlock">Sunt de acord.</a>--%>
+<%--</div>--%>
+<footer class="footer font-small pt-4 mt-4 border-top bg-white box-shadow">
+    <div class="container-fluid text-center">
+        <p>Este ceva ce nu functioneaza? Daca ai intimpinat vreo eroare,
             <a href="/report/">te rugam sa ne informezi aici.</a></p>
-        <p><a href="/termeni/">Condiții generale pentru utilizator</a> &nbsp
-            <a href="/contact/">Contactați-ne!</a> &nbsp
+        <p><a href="/termeni/">Conditii generale pentru utilizator</a> &nbsp
+            <a href="/contact/">Contactati-ne!</a> &nbsp
             <a href="/politica_confidentialitate/">politica de confidentialitate</a></p>
-        <p class="copyright">2018 © Copyright Site.ro toate drepturile rezervate Site SRL Ploiesti Str. Domnisori,
-            Bl 63, Sc. A, Ap. 8</p>
-        <a href="#" class="jump-to footer-top-link" data-where="body" data-offset="-56"></a>
     </div>
+        <div class="footer-copyright text-center">
+            <div class="container-fluid"> 2018 Copyright: Site.ro toate drepturile rezervate Site SRL Ploiesti Str. Domnisori,
+                Bl 63, Sc. A, Ap. 8
+            </div>
+        </div>
 </footer>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

@@ -71,3 +71,32 @@ body {
 .has-error {
     color: red
 }
+
+.cookie-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    padding: 6px 0;
+    background-color: #000;
+    z-index: 1000;
+    text-align: center;
+    font-size: 0.8125rem;
+}
+
+.cookie-bar-button {
+    border-radius: 30px;
+    margin: 0 10px 0 5px;
+    padding: 3px 20px;
+    font-size: 0.8125rem;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 90px;
+    line-height: 8px; /* Vertically center the text there */
+}
