@@ -1,6 +1,7 @@
 package com.social.web;
 
 import com.social.model.User;
+import com.social.service.Messages;
 import com.social.service.SecurityService;
 import com.social.service.UserService;
 import com.social.validator.UserValidator;
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private Messages msg;
 
     @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model) {

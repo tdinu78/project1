@@ -1,6 +1,7 @@
 package com.social.validator;
 
 import com.social.model.User;
+import com.social.service.Messages;
 import com.social.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,9 @@ import org.springframework.validation.Validator;
 public class UserValidator implements Validator {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private Messages msg;
 
     @Override
     public boolean supports(Class<?> aClass) {
