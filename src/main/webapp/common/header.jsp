@@ -47,15 +47,55 @@
                                                                      class="img-responsive" title="Favorite"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link p-2 text-primary" href="${contextPath}/login">Contul meu</a>
+                    <a class="nav-link p-2 text-primary" href="${contextPath}/login"><spring:message code="header.myAccount"/></a>
                 </li>
             </ul>
+            <li class="dropdown" style="list-style: none">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img id="imgNavSel" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavSel">${pageContext.response.locale}</span><span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a id="navEng" href="?lang=en" class="language"><img id="imgNavEng" height="25px" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavEng"><spring:message code="lang.eng"/></span></a></li>
+                    <li><a id="navRom" href="?lang=ro" class="language"><img id="imgNavRom" height="25px" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavRom"><spring:message code="lang.rom"/></span></a></li>
+                </ul>
+            </li>
         </div>
     </nav>
 </header>
 <div class="pb-5 mb-3"></div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="${contextPath}/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
 <script src="${contextPath}/resources/fontawesome-5.0.8/js/fontawesome-all.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var romImgLink = "${contextPath}/resources/img/flag-of-Romania.png";
+        var engImgLink = "${contextPath}/resources/img/flag-of-United-Kingdom.png";
+
+        var imgNavSel = $('#imgNavSel');
+        var imgNavEng = $('#imgNavEng');
+        var imgNavRom = $('#imgNavRom');
+
+        var spanNavSel = $('#lanNavSel');
+        if(spanNavSel.text()=="ro"){
+            spanNavSel.text("<spring:message code="lang.rom"/>");
+            imgNavSel.attr("src",romImgLink);
+        }else if(spanNavSel.text()=="en"){
+            spanNavSel.text("<spring:message code="lang.eng"/>");
+            imgNavSel.attr("src",engImgLink);
+        }
+        imgNavRom.attr("src",romImgLink);
+        imgNavEng.attr("src",engImgLink);
+
+        $( ".language" ).on( "click", function( event ) {
+            var currentId = $(this).attr('id');
+
+            if(currentId == "navRom") {
+                imgNavSel.attr("src",romImgLink);
+                spanNavSel.text("<spring:message code="lang.eng"/>");
+            } else if (currentId == "navEng") {
+                imgNavSel.attr("src", engImgLink);
+                spanNavSel.text("<spring:message code="lang.rom"/>");
+            }
+        });
+    });
+</script>
 </body>
 </html>

@@ -139,3 +139,10 @@ body {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
 }
+
+.icon-small
+{
+    height:16px;
+    margin:0;
+    padding:0;
+}
