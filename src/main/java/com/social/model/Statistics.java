@@ -1,15 +1,16 @@
 package com.social.model;
 
+import com.social.enums.LifeCycle;
 import javax.persistence.*;
-import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "statistics")
 public class Statistics {
     private Long id;
-    private String username;
-    private List<Logins> logins;
+    private User user_st;
+    private Set<Logins> logins;
+    private LifeCycle lifecycle;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,20 +22,30 @@ public class Statistics {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
+    public User getUser_st() {
+        return user_st;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser_st(User user_st) {
+        this.user_st = user_st;
     }
-    @ElementCollection
-    @CollectionTable(name="logins", joinColumns=@JoinColumn(name="username"))
-    public List<Logins> getLogins() {
+
+    @OneToMany(mappedBy="statistics")
+    public Set<Logins> getLogins() {
         return logins;
     }
 
-    public void setLogins(List<Logins> logins) {
+    public void setLogins(Set<Logins> logins) {
         this.logins = logins;
+    }
+
+    public LifeCycle getLifecycle() {
+        return lifecycle;
+    }
+
+    public void setLifecycle(LifeCycle lifecycle) {
+        this.lifecycle = lifecycle;
     }
 }

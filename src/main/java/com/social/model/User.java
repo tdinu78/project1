@@ -1,9 +1,9 @@
 package com.social.model;
 
+import com.social.enums.LifeCycle;
+
 import javax.persistence.*;
-import java.sql.Blob;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,12 +36,16 @@ public class User {
     private String smoking;
     private String drinking;
     private String language;
-    //private List<Blob> publicPics;
-    //private List<Blob> privatePics;
+    private Set<Picture> pics;
     private String location;
     private String descrAboutME;
     private String descrLookingFor;
     private String descrLookingForMore;
+    private LifeCycle lifecycle;
+    private Statistics statistics;
+    private Set<Message> messagesSent;
+    private Set<Message> messagesReceived;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -247,24 +251,6 @@ public class User {
     public void setLanguage(String language) {
         this.language = language;
     }
-//    @ElementCollection
-//    @CollectionTable(name="public_pics", joinColumns=@JoinColumn(name="username"))
-//    public List<Blob> getPublicPics() {
-//        return publicPics;
-//    }
-//
-//    public void setPublicPics(List<Blob> publicPics) {
-//        this.publicPics = publicPics;
-//    }
-//    @ElementCollection
-//    @CollectionTable(name="private_pics", joinColumns=@JoinColumn(name="username"))
-//    public List<Blob> getPrivatePics() {
-//        return privatePics;
-//    }
-//
-//    public void setPrivatePics(List<Blob> privatePics) {
-//        this.privatePics = privatePics;
-//    }
 
     public String getLocation() {
         return location;
@@ -312,5 +298,49 @@ public class User {
 
     public void setAgreedTerms(boolean agreedTerms) {
         this.agreedTerms = agreedTerms;
+    }
+
+    public LifeCycle getLifecycle() {
+        return lifecycle;
+    }
+
+    public void setLifecycle(LifeCycle lifecycle) {
+        this.lifecycle = lifecycle;
+    }
+
+    @OneToMany(mappedBy="user")
+    public Set<Picture> getPics() {
+        return pics;
+    }
+
+    public void setPics(Set<Picture> pics) {
+        this.pics = pics;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user_st")
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    public void setStatistics(Statistics statistics) {
+        this.statistics = statistics;
+    }
+
+    @OneToMany(mappedBy = "sender")
+    public Set<Message> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(Set<Message> messagesSent) {
+        this.messagesSent = messagesSent;
+    }
+
+    @OneToMany(mappedBy = "receiver")
+    public Set<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(Set<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
     }
 }

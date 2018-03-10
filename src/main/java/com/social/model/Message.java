@@ -1,16 +1,19 @@
 package com.social.model;
 
+import com.social.enums.LifeCycle;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "message")
 public class Message {
     private Long id;
-    private String usernameFrom;
-    private String usernameTo;
-    private String message;
+    private User sender;
+    private User receiver;
+    private String messageContent;
     private ZonedDateTime issueTime;
+    private LifeCycle lifecycle;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,28 +25,32 @@ public class Message {
         this.id = id;
     }
 
-    public String getUsernameFrom() {
-        return usernameFrom;
+    @ManyToOne
+    @JoinColumn(name = "sender")
+    public User getSender() {
+        return sender;
     }
 
-    public void setUsernameFrom(String usernameFrom) {
-        this.usernameFrom = usernameFrom;
+    public void setSender(User sender) {
+        this.sender = sender;
     }
 
-    public String getUsernameTo() {
-        return usernameTo;
+    @ManyToOne
+    @JoinColumn(name = "receiver")
+    public User getReceiver() {
+        return receiver;
     }
 
-    public void setUsernameTo(String usernameTo) {
-        this.usernameTo = usernameTo;
+    public void setReceiver(User receiver) {
+        this.receiver = receiver;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMessageContent() {
+        return messageContent;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMessageContent(String messageContent) {
+        this.messageContent = messageContent;
     }
 
     public ZonedDateTime getIssueTime() {
@@ -52,5 +59,13 @@ public class Message {
 
     public void setIssueTime(ZonedDateTime issueTime) {
         this.issueTime = issueTime;
+    }
+
+    public LifeCycle getLifecycle() {
+        return lifecycle;
+    }
+
+    public void setLifecycle(LifeCycle lifecycle) {
+        this.lifecycle = lifecycle;
     }
 }

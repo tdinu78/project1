@@ -1,7 +1,7 @@
 package com.social.model;
 
 import com.social.enums.FavEnum;
-
+import com.social.enums.LifeCycle;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
@@ -13,6 +13,7 @@ public class Favorite {
     private String usernameTo;
     private FavEnum favorite;
     private ZonedDateTime issueTime;
+    private LifeCycle lifecycle;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -54,5 +55,13 @@ public class Favorite {
 
     public void setIssueTime(ZonedDateTime issueTime) {
         this.issueTime = issueTime;
+    }
+
+    public LifeCycle getLifecycle() {
+        return lifecycle;
+    }
+
+    public void setLifecycle(LifeCycle lifecycle) {
+        this.lifecycle = lifecycle;
     }
 }
