@@ -19,7 +19,12 @@
         <div class="col-md-5 p-lg-5 mx-auto my-5 img-mdl">
             <h1 class="display-4 font-weight-normal">Pagina de socializare</h1>
             <p class="lead font-weight-normal">Aici poti interactiona cu cine vrei tu</p>
-            <a class="btn btn-outline-secondary" href="${contextPath}/registration">Inregistrare</a>
+            <c:if test="${pageContext.request.userPrincipal.name == null}">
+                <div>
+                    <a class="btn btn-outline-secondary" href="${contextPath}/registration"><spring:message code="header.signup"/></a>
+                    <a class="btn btn-outline-primary" href="${contextPath}/login"><spring:message code="header.login"/></a>
+                </div>
+            </c:if>
         </div>
     </div>
 </div>

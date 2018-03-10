@@ -29,32 +29,53 @@
         <a class="navbar-brand" href="${contextPath}/"><img src="${contextPath}/resources/img/site_logo_1.png" height="30px"
                                               class=""></a>
         <div class="collapse navbar-collapse" id="navbarCollapse">
-            <form class="form-inline mt-2 mt-md-0 ml-auto">
-                <input class="form-control-sm" type="text" placeholder="Cauta" aria-label="Search">
-                <input type="image" src="${contextPath}/resources/img/search_1.png" height="25px" alt="Submit"
-                       class="img-responsive" title="Cauta"/>
-            </form>
-            <ul class="navbar-nav ml-0">
-                <li class="nav-item active">
-                    <a class="nav-link text-primary" href="#">
-                        <input type="image" src="${contextPath}/resources/img/message_1.png" height="25px" alt="Submit"
-                                                                     class="img-responsive" title="Mesaje"/>
-                        <span class="sr-only">(current)</span></a>
+            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                <form class="form-inline mt-2 mt-md-0 ml-auto mr-2">
+                    <input class="form-control-sm" type="text" placeholder="Cauta" aria-label="Search">
+                    <input type="image" src="${contextPath}/resources/img/search_1.png" height="25px" alt="Submit"
+                           class="img-responsive" title="Cauta"/>
+                </form>
+                <ul class="navbar-nav ml-0">
+                        <li>
+                            <a class="nav-link text-primary" href="#">
+                                <input type="image" src="${contextPath}/resources/img/message_1.png" height="25px" alt="Submit"
+                                                                             class="img-responsive" title="Mesaje"/>
+                                <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li>
+                            <a class="nav-link text-primary" href="#">
+                                <input type="image" src="${contextPath}/resources/img/favourites_1.png" height="25px" alt="Submit"
+                                                                             class="img-responsive" title="Favorite"/></a>
+                        </li>
+                </ul>
+            </c:if>
+            <c:if test="${pageContext.request.userPrincipal.name == null}">
+                <li class="dropdown ml-auto mr-2" style="list-style: none">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="ml-2 m-r-sm fas fa-user"></i><span><spring:message code="header.myAccount"/></span><span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="${contextPath}/login"><i class="ml-2 m-r-sm fas fa-sign-in-alt"></i><span><spring:message code="header.login"/></span></a></li>
+                        <li><a href="${contextPath}/registration"><i class="ml-2 m-r-sm fas fa-edit"></i><span><spring:message code="header.signup"/></span></a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-primary" href="#">
-                        <input type="image" src="${contextPath}/resources/img/favourites_1.png" height="25px" alt="Submit"
-                                                                     class="img-responsive" title="Favorite"/></a>
+            </c:if>
+            <c:if test="${pageContext.request.userPrincipal.name != null}">
+                <form id="logoutForm" method="POST" action="${contextPath}/logout">
+                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                </form>
+                <li class="dropdown" style="list-style: none">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="" alt="..." class="img-thumbnail icon-small"><span>${pageContext.request.userPrincipal.name}</span><span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="?lang=en"><i class="ml-2 m-r-sm fas fa-user"></i><span><spring:message code="header.myProfile"/></span></a></li>
+                        <li><a href="?lang=en"><i class="ml-2 m-r-sm fas fa-cog"></i><span><spring:message code="header.mySettings"/></span></a></li>
+                        <li><a href="#" onclick="document.forms['logoutForm'].submit()" class="language"><i class="ml-2 fas fa-sign-out-alt m-r-sm"></i><span><spring:message code="header.logout"/></span></a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link p-2 text-primary" href="${contextPath}/login"><spring:message code="header.myAccount"/></a>
-                </li>
-            </ul>
-            <li class="dropdown" style="list-style: none">
+            </c:if>
+            <li class="dropdown ml-4 mr-2" style="list-style: none">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img id="imgNavSel" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavSel">${pageContext.response.locale}</span><span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a id="navEng" href="?lang=en" class="language"><img id="imgNavEng" height="25px" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavEng"><spring:message code="lang.eng"/></span></a></li>
-                    <li><a id="navRom" href="?lang=ro" class="language"><img id="imgNavRom" height="25px" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavRom"><spring:message code="lang.rom"/></span></a></li>
+                    <li><a id="navEng" href="?lang=en"><img id="imgNavEng" height="25px" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavEng"><spring:message code="lang.eng"/></span></a></li>
+                    <li><a id="navRom" href="?lang=ro"><img id="imgNavRom" height="25px" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavRom"><spring:message code="lang.rom"/></span></a></li>
                 </ul>
             </li>
         </div>
