@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="locale" value="${pageContext.response.locale}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +17,7 @@
 <script src="${contextPath}/resources/bootstrap-fileinput-master/js/fileinput.min.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/bootstrap-fileinput-master/js/plugins/sortable.min.js" type="text/javascript"></script>
 <script src="${contextPath}/resources/bootstrap-fileinput-master/themes/fa/theme.min.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/bootstrap-fileinput-master/js/locales/${locale}.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 <div class="container mt-5">
 <form:form method="POST" class="form-horizontal" modelAttribute="userForm" enctype="multipart/form-data">
@@ -29,10 +31,10 @@
     <div class="col-sm-4 text-center">
         <div class="kv-avatar">
             <div class="file-loading">
-                <input id="avatar-1" name="blabla" type="file" required>
+                <input id="avatar-1" name="avatar-1" type="file" required>
             </div>
         </div>
-        <div class="kv-avatar-hint"><small>Select file < 1500 KB</small></div>
+        <div class="kv-avatar-hint"><small><spring:message code="registration.picSize"/></small></div>
     </div>
     <div id="kv-avatar-errors-1" class="center-block" style="width:800px;display:none"></div>
     <div class="row">
@@ -173,6 +175,8 @@
 <jsp:include page="common/footer.jsp"/>
 <script>
     $("#avatar-1").fileinput({
+        theme: 'fa',
+        language: '${locale}',
         overwriteInitial: true,
         maxFileSize: 1500,
         showClose: false,

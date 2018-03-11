@@ -3,6 +3,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
+<c:set var="locale" value="${pageContext.response.locale}"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +74,7 @@
                 </li>
             </c:if>
             <li class="dropdown ml-4 mr-2" style="list-style: none">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img id="imgNavSel" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavSel">${pageContext.response.locale}</span><span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img id="imgNavSel" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavSel">${locale}</span><span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
                     <li><a id="navEng" href="?lang=en"><img id="imgNavEng" height="25px" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavEng"><spring:message code="lang.eng"/></span></a></li>
                     <li><a id="navRom" href="?lang=ro"><img id="imgNavRom" height="25px" src="" alt="..." class="img-thumbnail icon-small"><span id="lanNavRom"><spring:message code="lang.rom"/></span></a></li>
