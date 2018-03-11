@@ -185,7 +185,7 @@
         removeLabel: '',
         browseIcon: '<i class="fa fa-folder-open"></i>',
         removeIcon: '<i class="fa fa-trash-alt"></i>',
-        removeTitle: 'Cancel or reset changes',
+        removeTitle: '<spring:message code="registration.resetChanges"/>',
         elErrorContainer: '#kv-avatar-errors-1',
         msgErrorClass: 'alert alert-block alert-danger',
         defaultPreviewContent: '<img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar">',

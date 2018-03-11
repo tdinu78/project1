@@ -90,12 +90,12 @@
             indicatorLoadingTitle: 'Se încarcă ...'
         },
         previewZoomButtonTitles: {
-            prev: 'View previous file',
-            next: 'View next file',
-            toggleheader: 'Toggle header',
-            fullscreen: 'Toggle full screen',
-            borderless: 'Toggle borderless mode',
-            close: 'Close detailed preview'
+            prev: 'Vezi fișierul anterior',
+            next: 'Vezi fișierul urmator',
+            toggleheader: 'Ascunde antet',
+            fullscreen: 'Vezi pe tot ecranul',
+            borderless: 'Ascunde marginile',
+            close: 'Închide previzualizarea'
         }
     };
 })(window.jQuery);
