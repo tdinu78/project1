@@ -13,8 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.ServletContext;
+
 @Controller
 public class UserController {
+
+    @Autowired
+    ServletContext context;
+
     @Autowired
     private UserService userService;
 

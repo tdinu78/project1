@@ -15,6 +15,7 @@
     <meta name="author" content="">
 
     <link href="${contextPath}/resources/bootstrap-4.0.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${contextPath}/resources/fontawesome-free-5.0.8/web-fonts-with-css/css/fontawesome-all.min.css" rel="stylesheet">
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -84,7 +85,7 @@
 <div class="pb-5 mb-3"></div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="${contextPath}/resources/bootstrap-4.0.0-dist/js/bootstrap.min.js"></script>
-<script src="${contextPath}/resources/fontawesome-5.0.8/js/fontawesome-all.min.js"></script>
+<script src="${contextPath}/resources/fontawesome-free-5.0.8/svg-with-js/js/fontawesome-all.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         var romImgLink = "${contextPath}/resources/img/flag-of-Romania.png";

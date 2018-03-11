@@ -12,8 +12,13 @@
 
 <body>
 <jsp:include page="common/header.jsp"/>
+<link href="${contextPath}/resources/bootstrap-fileinput-master/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css"/>
+<script src="${contextPath}/resources/bootstrap-fileinput-master/js/fileinput.min.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/bootstrap-fileinput-master/js/plugins/sortable.min.js" type="text/javascript"></script>
+<script src="${contextPath}/resources/bootstrap-fileinput-master/themes/fa/theme.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 <div class="container mt-5">
-<form:form method="POST" class="form-horizontal" modelAttribute="userForm">
+<form:form method="POST" class="form-horizontal" modelAttribute="userForm" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-6">
@@ -21,6 +26,15 @@
             <hr>
         </div>
     </div>
+    <div class="col-sm-4 text-center">
+        <div class="kv-avatar">
+            <div class="file-loading">
+                <input id="avatar-1" name="blabla" type="file" required>
+            </div>
+        </div>
+        <div class="kv-avatar-hint"><small>Select file < 1500 KB</small></div>
+    </div>
+    <div id="kv-avatar-errors-1" class="center-block" style="width:800px;display:none"></div>
     <div class="row">
         <div class="col-md-3">
             <label for="name">Name</label>
@@ -157,5 +171,23 @@
 </form:form>
 </div>
 <jsp:include page="common/footer.jsp"/>
+<script>
+    $("#avatar-1").fileinput({
+        overwriteInitial: true,
+        maxFileSize: 1500,
+        showClose: false,
+        showCaption: false,
+        browseLabel: '',
+        removeLabel: '',
+        browseIcon: '<i class="fa fa-folder-open"></i>',
+        removeIcon: '<i class="fa fa-trash-alt"></i>',
+        removeTitle: 'Cancel or reset changes',
+        elErrorContainer: '#kv-avatar-errors-1',
+        msgErrorClass: 'alert alert-block alert-danger',
+        defaultPreviewContent: '<img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar">',
+        layoutTemplates: {main2: '{preview} {remove} {browse}'},
+        allowedFileExtensions: ["jpg", "png", "gif"]
+    });
+</script>
 </body>
 </html>
