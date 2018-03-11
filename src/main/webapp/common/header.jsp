@@ -67,7 +67,7 @@
                 <li class="dropdown" style="list-style: none">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="" alt="..." class="img-thumbnail icon-small"><span>${pageContext.request.userPrincipal.name}</span><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="?lang=en"><i class="ml-2 m-r-sm fas fa-user"></i><span><spring:message code="header.myProfile"/></span></a></li>
+                        <li><a href="${contextPath}/myprofile"><i class="ml-2 m-r-sm fas fa-user"></i><span><spring:message code="header.myProfile"/></span></a></li>
                         <li><a href="?lang=en"><i class="ml-2 m-r-sm fas fa-cog"></i><span><spring:message code="header.mySettings"/></span></a></li>
                         <li><a href="#" onclick="document.forms['logoutForm'].submit()" class="language"><i class="ml-2 fas fa-sign-out-alt m-r-sm"></i><span><spring:message code="header.logout"/></span></a></li>
                     </ul>
