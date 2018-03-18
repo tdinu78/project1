@@ -1,8 +1,10 @@
 package com.social.web;
 
 import com.social.enums.PictureType;
+import com.social.service.SecurityService;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
@@ -19,10 +21,12 @@ import java.security.SecureRandom;
 import java.util.Collection;
 
 
-
 @MultipartConfig
 @Controller
 public class UploadController{
+
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping("/upload")
     public String fileUploadForm(Model model) {
@@ -38,9 +42,10 @@ public class UploadController{
                 String fileName = null;
                 String filePath;
                 PictureType type;
+                String userName = securityService.findLoggedInUsername();
+                request.getContextPath();
                 File uploadDir = new File("c:/upload");
                 if (!uploadDir.exists()) uploadDir.mkdirs();
-                byte[] buffer = new byte[8 * 1024];
                 Collection<Part> parts = request.getParts();
                 for (Part part : parts) {
                     if(part.getSubmittedFileName()!=null) {
@@ -52,11 +57,7 @@ public class UploadController{
                         File uploadedFile = new File(uploadDir, fileName);
                         try (InputStream input = part.getInputStream();
                              OutputStream output = new FileOutputStream(uploadedFile)) {
-//                            int bytesRead;
                             FileCopyUtils.copy(input, output);
-//                            while ((bytesRead = input.read(buffer)) != -1) {
-//                                output.write(buffer, 0, bytesRead);
-//                            }
                         }
                     }
                 }

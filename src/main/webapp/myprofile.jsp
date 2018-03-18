@@ -36,7 +36,7 @@
                             <input id="avatar-1" name="avatar-1" type="file" required>
                         </div>
                     </div>
-                    <div class="kv-avatar-hint"><small><spring:message code="registration.picSize"/></small></div>
+                    <div class="kv-avatar-hint"><small><spring:message code="registration.picSize"/> <5 MB</small></div>
                 </div>
                 <div id="kv-avatar-errors-1" class="center-block" style="width:800px;display:none"></div>
                 <div class="form-group">
@@ -58,13 +58,14 @@
         theme: 'fa',
         language: '${locale}',
         overwriteInitial: true,
-        maxFileSize: 1500,
+        maxFileSize: 5000,
         showClose: false,
         showCaption: false,
         showUpload: false,
         browseLabel: '',
         removeLabel: '',
         uploadUrl: '${contextPath}/upload',
+        deleteUrl: '${contextPath}/upload',
         browseIcon: '<i class="fa fa-folder-open"></i>',
         removeIcon: '<i class="fa fa-trash-alt"></i>',
         removeTitle: '<spring:message code="registration.resetChanges"/>',
@@ -72,12 +73,26 @@
         msgErrorClass: 'alert alert-block alert-danger',
         defaultPreviewContent: '<img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar">',
         layoutTemplates: {main2: '{preview} {remove} {browse}'},
+        layoutTemplates: {
+            footer:'<div class="file-thumbnail-footer">\n' +
+            '    <div class="file-footer-caption" title="{caption}">\n' +
+            '        <div class="file-caption-info"></div>\n' +
+            '        <div class="file-size-info"></div>\n' +
+            '    </div>\n' +
+            '    {progress}\n{indicator}\n{actions}\n' +
+            '</div>'},
+        initialPreviewConfig: [
+            {
+                url: '${contextPath}/upload' // server delete action
+            }
+        ],
         allowedFileExtensions: ["jpg", "png", "gif"]
     });
     $("#file-1").fileinput({
         theme: 'fa',
         language: '${locale}',
         showClose: false,
+        maxFileSize: 5000,
         showCaption: false,
         showUpload: false,
         browseLabel: '',
@@ -91,6 +106,14 @@
         removeTitle: '<spring:message code="registration.resetChanges"/>',
         defaultPreviewContent: '<img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar"><img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar"><img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar">',
         overwriteInitial: true,
+        layoutTemplates: {
+            footer:'<div class="file-thumbnail-footer">\n' +
+            '    <div class="file-footer-caption" title="{caption}">\n' +
+            '        <div class="file-caption-info"></div>\n' +
+            '        <div class="file-size-info"></div>\n' +
+            '    </div>\n' +
+            '    {progress}\n{indicator}\n{actions}\n' +
+            '</div>'},
         layoutTemplates: {main2: '{preview} {remove} {browse}'}
     });
 </script>

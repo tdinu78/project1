@@ -18,7 +18,7 @@ public class User {
     private Set<Role> roles;
     private ZonedDateTime memeberSince;
     private ZonedDateTime lastActive;
-    private String lastLocation;
+    private Set<Location> locations;
     private String gender;
     private String heading;
     private String birthDate;
@@ -108,12 +108,13 @@ public class User {
         this.lastActive = lastActive;
     }
 
-    public String getLastLocation() {
-        return lastLocation;
+    @OneToMany(mappedBy = "user_loc")
+    public Set<Location> getLocations() {
+        return locations;
     }
 
-    public void setLastLocation(String lastLocation) {
-        this.lastLocation = lastLocation;
+    public void setLocations(Set<Location> locations) {
+        this.locations = locations;
     }
 
     public String getGender() {
