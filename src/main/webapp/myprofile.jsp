@@ -61,9 +61,12 @@
         maxFileSize: 5000,
         showClose: false,
         showCaption: false,
-        showUpload: false,
         browseLabel: '',
         removeLabel: '',
+        uploadClass: "btn btn-info",
+        showUpload: true,
+        uploadLabel: '',
+        uploadIcon: '<i class="fa fa-upload"></i>',
         uploadUrl: '${contextPath}/upload',
         deleteUrl: '${contextPath}/upload',
         browseIcon: '<i class="fa fa-folder-open"></i>',
@@ -71,8 +74,9 @@
         removeTitle: '<spring:message code="registration.resetChanges"/>',
         elErrorContainer: '#kv-avatar-errors-1',
         msgErrorClass: 'alert alert-block alert-danger',
-        defaultPreviewContent: '<img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar">',
-        layoutTemplates: {main2: '{preview} {remove} {browse}'},
+        initialPreviewAsData: true,
+        layoutTemplates: {main2: '{browse} {upload} {preview} {remove}'},
+        initialPreviewDownloadUrl: 'http://kartik-v.github.io/bootstrap-fileinput-samples/samples/{filename}',
         layoutTemplates: {
             footer:'<div class="file-thumbnail-footer">\n' +
             '    <div class="file-footer-caption" title="{caption}">\n' +
@@ -83,29 +87,37 @@
             '</div>'},
         initialPreviewConfig: [
             {
-                url: '${contextPath}/upload' // server delete action
+                downloadUrl: '${contextPath}/upload' // server download action
             }
         ],
+        uploadExtraData: {
+            img_type: "avatar"
+        },
         allowedFileExtensions: ["jpg", "png", "gif"]
     });
     $("#file-1").fileinput({
         theme: 'fa',
         language: '${locale}',
         showClose: false,
+        overwriteInitial: true,
         maxFileSize: 5000,
         showCaption: false,
-        showUpload: false,
         browseLabel: '',
         removeLabel: '',
+        uploadClass: "btn btn-info",
+        showUpload: true,
+        uploadLabel: '',
         uploadUrl: '${contextPath}/upload',
+        deleteUrl: '${contextPath}/upload',
         browseIcon: '<i class="fa fa-folder-open"></i>',
         removeIcon: '<i class="fa fa-trash-alt"></i>',
+        uploadIcon: '<i class="fa fa-upload"></i>',
         elErrorContainer: '#kv-avatar-errors-2',
         msgErrorClass: 'alert alert-block alert-danger',
-        allowedFileExtensions: ["jpg", "png", "gif"],
         removeTitle: '<spring:message code="registration.resetChanges"/>',
-        defaultPreviewContent: '<img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar"><img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar"><img src="${contextPath}/resources/img/default_avatar_male.jpg" alt="Your Avatar">',
-        overwriteInitial: true,
+        initialPreviewAsData: true,
+        initialPreviewDownloadUrl: 'http://kartik-v.github.io/bootstrap-fileinput-samples/samples/{filename}',
+        layoutTemplates: {main1: '{browse} {upload} {preview} {remove}'},
         layoutTemplates: {
             footer:'<div class="file-thumbnail-footer">\n' +
             '    <div class="file-footer-caption" title="{caption}">\n' +
@@ -114,7 +126,15 @@
             '    </div>\n' +
             '    {progress}\n{indicator}\n{actions}\n' +
             '</div>'},
-        layoutTemplates: {main2: '{preview} {remove} {browse}'}
+        initialPreviewConfig: [
+            {
+                downloadUrl: '${contextPath}/upload' // server download action
+            }
+        ],
+        uploadExtraData: {
+            img_type: "public"
+        },
+        allowedFileExtensions: ["jpg", "png", "gif"]
     });
 </script>
 </body>

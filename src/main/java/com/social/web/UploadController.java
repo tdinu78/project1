@@ -44,7 +44,7 @@ public class UploadController{
                 PictureType type;
                 String userName = securityService.findLoggedInUsername();
                 request.getContextPath();
-                File uploadDir = new File("c:/upload");
+                File uploadDir = new File("c:/upload"+userName);
                 if (!uploadDir.exists()) uploadDir.mkdirs();
                 Collection<Part> parts = request.getParts();
                 for (Part part : parts) {

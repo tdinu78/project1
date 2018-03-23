@@ -62,10 +62,10 @@ public class LoginController {
 
     @RequestMapping(value = "/successlogin")
     public String index(ModelMap model, Principal principal){
-        Location location = userService.getClientLocation();
-        User loggedUser = userService.findByUsername(principal.getName());
-        location.setUser_loc(loggedUser);
-        userService.save(location);
+//        Location location = userService.getClientLocation();
+//        User loggedUser = userService.findByUsername(principal.getName());
+//        location.setUser_loc(loggedUser);
+//        userService.save(location);
         return "index";
     }
 }
