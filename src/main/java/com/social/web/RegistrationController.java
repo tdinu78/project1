@@ -65,6 +65,11 @@ public class RegistrationController {
 
         securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
 
+        Location location = userService.getClientLocation();
+        User loggedUser = userService.findByUsername(userForm.getUsername());
+        location.setUser_loc(loggedUser);
+        userService.save(location);
+
         return "redirect:/myprofile";
     }
 }

@@ -17,6 +17,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Map;
 
@@ -85,6 +86,7 @@ public class UserServiceImpl implements UserService {
                 location.setOrg((String) jsonMap.get("org"));
                 location.setAsTxt((String) jsonMap.get("as"));
                 location.setIpAddresss((String) jsonMap.get("query"));
+                location.setZonedDateTime(ZonedDateTime.now());
             }else{
                 //fail
             }
