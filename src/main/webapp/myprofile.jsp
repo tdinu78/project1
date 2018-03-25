@@ -68,7 +68,7 @@
         uploadLabel: '',
         uploadIcon: '<i class="fa fa-upload"></i>',
         uploadUrl: '${contextPath}/upload',
-        deleteUrl: '${contextPath}/upload',
+        deleteUrl: '${contextPath}/removeFile/{filename}',
         browseIcon: '<i class="fa fa-folder-open"></i>',
         removeIcon: '<i class="fa fa-trash-alt"></i>',
         removeTitle: '<spring:message code="registration.resetChanges"/>',
@@ -108,7 +108,7 @@
         showUpload: true,
         uploadLabel: '',
         uploadUrl: '${contextPath}/upload',
-        deleteUrl: '${contextPath}/upload',
+        deleteUrl: '${contextPath}/removeFile/{filename}',
         browseIcon: '<i class="fa fa-folder-open"></i>',
         removeIcon: '<i class="fa fa-trash-alt"></i>',
         uploadIcon: '<i class="fa fa-upload"></i>',
@@ -116,7 +116,7 @@
         msgErrorClass: 'alert alert-block alert-danger',
         removeTitle: '<spring:message code="registration.resetChanges"/>',
         initialPreviewAsData: true,
-        initialPreviewDownloadUrl: 'http://kartik-v.github.io/bootstrap-fileinput-samples/samples/{filename}',
+        initialPreview:'${contextPath}/preview/public',
         layoutTemplates: {main1: '{browse} {upload} {preview} {remove}'},
         layoutTemplates: {
             footer:'<div class="file-thumbnail-footer">\n' +
@@ -128,7 +128,8 @@
             '</div>'},
         initialPreviewConfig: [
             {
-                downloadUrl: '${contextPath}/upload' // server download action
+                downloadUrl: '${contextPath}/upload', // server download action
+                url: '${contextPath}/removeFile/{filename}'
             }
         ],
         uploadExtraData: {

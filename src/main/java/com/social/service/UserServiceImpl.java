@@ -2,8 +2,10 @@ package com.social.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.social.model.Location;
+import com.social.model.Picture;
 import com.social.model.User;
 import com.social.repository.LocationRepository;
+import com.social.repository.PicturesRepository;
 import com.social.repository.RoleRepository;
 import com.social.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private LocationRepository locationRepository;
     @Autowired
+    private PicturesRepository pictureRepository;
+    @Autowired
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -44,6 +48,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(Location location) {
         locationRepository.save(location);
+    }
+
+    @Override
+    public void save(Picture picture) {
+        pictureRepository.save(picture);
     }
 
     @Override
