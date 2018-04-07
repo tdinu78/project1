@@ -165,3 +165,22 @@ body {
     display: table-cell;
     width: 213px;
 }
+.pill-premium {
+    display: block;
+    padding: 5px 10px;
+    background-color: transparent;
+    color: #eba00e;
+    font-size: 14px;
+    border-radius: 14px;
+    font-weight: 700;
+    border: 2px solid #eba00e;
+    text-align: center;
+}
+.online-status-green{
+    width: 12px;
+    height: 12px;
+    background-color: #3fcd15;
+    display: block;
+    margin: 0 15px 0 10px;
+    border-radius: 12px;
+}

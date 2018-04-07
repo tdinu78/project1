@@ -36,6 +36,178 @@
         </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="overview" role="tabpanel" aria-labelledby="overview-tab">
+            <hr class="">
+            <div class="container">
+                <div class="row">
+                    <div class="bg-transparent col-sm-4">
+                            <a href="" data-toggle="modal" data-target="#productModal">
+                                <img class="img-fluid img-thumbnail" style="object-fit: cover; height: 260px; width: 260px" src="${contextPath}/preview/avatar"/>
+                            </a>
+                    </div>
+                    <div class="col-sm-8">
+                        <table>
+                            <tr>
+                                <td style="min-width: 10px;">
+                                    <span class="online-status-green" style="display: block;"></span>
+                                </td>
+                                <td>
+                                    <h1>Starfox221</h1>
+                                </td>
+                                <td>
+                                    <span class="pill-premium">Premium Member</span>
+                                </td>
+                            </tr>
+                        </table>
+                        <br>
+                        <p class="mb-1">Man, 21</p>
+                        <button type="button" class="btn btn-outline-secondary float-right">Favourite</button>
+                        <button type="button" class="btn btn-outline-secondary float-right m-r-sm">Message</button>
+                        <p class="">Location Ploiesti</p>
+                        <strong class="">I want to meet interesting people and talk and bla bla</strong>
+                        <br><br>
+                        <a href="#" id="usernotes" data-placeholder="User notes" class="text-muted text-sm-left" data-type="text" data-placement="right" data-url="/post" data-title="User notes"></a>
+                            <br>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <!--left col-->
+                        <ul class="list-group">
+                            <li class="list-group-item text-muted" contenteditable="false">Recent activity</li>
+                            <li class="list-group-item bg-transparent">
+                                <span class="ml-0"><strong class="">Joined</strong></span>
+                                <span class="float-right"><p class="mb-0">2.13.2014</p></span>
+                            </li>
+                            <li class="list-group-item bg-transparent">
+                                <span class="ml-0"><strong class="">Last active</strong></span>
+                                <span class="float-right"><p class="mb-0">Yesterday</p></span>
+                            </li>
+                            <li class="list-group-item bg-transparent">
+                                <span class="ml-0"><strong class="">Last viewed</strong></span>
+                                <span class="float-right"><p class="mb-0">Joseph Doe</p></span>
+                            </li>
+                            <li class="list-group-item bg-transparent">
+                                <span class="ml-0"><strong class="">Last message</strong></span>
+                                <span class="float-right"><p class="mb-0">Pet Sitter</p></span>
+                            </li>
+                            <li class="list-group-item bg-transparent">
+                                <span class="ml-0"><strong class="">Favourite</strong></span>
+                                <span class="float-right"><p class="mb-0">pune poza</p></span>
+                            </li>
+                        </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Insured / Bonded?
+
+                            </div>
+                            <div class="panel-body"><i style="color:green" class="fa fa-check-square"></i> Yes, I am insured and bonded.
+
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Website <i class="fa fa-link fa-1x"></i>
+
+                            </div>
+                            <div class="panel-body"><a href="http://bootply.com" class="">bootply.com</a>
+
+                            </div>
+                        </div>
+
+                        <ul class="list-group">
+                            <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i>
+
+                            </li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Shares</strong></span> 125</li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Likes</strong></span> 13</li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Posts</strong></span> 37</li>
+                            <li class="list-group-item text-right"><span class="pull-left"><strong class="">Followers</strong></span> 78</li>
+                        </ul>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Social Media</div>
+                            <div class="panel-body">	<i class="fa fa-facebook fa-2x"></i>  <i class="fa fa-github fa-2x"></i>
+                                <i class="fa fa-twitter fa-2x"></i> <i class="fa fa-pinterest fa-2x"></i>  <i class="fa fa-google-plus fa-2x"></i>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!--/col-3-->
+                    <div class="col-sm-9" style="" contenteditable="false">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Starfox221's Bio</div>
+                            <div class="panel-body"> A long description about me.
+
+                            </div>
+                        </div>
+                        <div class="panel panel-default target">
+                            <div class="panel-heading" contenteditable="false">Pets I Own</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="thumbnail">
+                                            <img alt="300x200" src="http://lorempixel.com/600/200/people">
+                                            <div class="caption">
+                                                <h3>
+                                                    Rover
+                                                </h3>
+                                                <p>
+                                                    Cocker Spaniel who loves treats.
+                                                </p>
+                                                <p>
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="thumbnail">
+                                            <img alt="300x200" src="http://lorempixel.com/600/200/city">
+                                            <div class="caption">
+                                                <h3>
+                                                    Marmaduke
+                                                </h3>
+                                                <p>
+                                                    Is just another friendly dog.
+                                                </p>
+                                                <p>
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="thumbnail">
+                                            <img alt="300x200" src="http://lorempixel.com/600/200/sports">
+                                            <div class="caption">
+                                                <h3>
+                                                    Rocky
+                                                </h3>
+                                                <p>
+                                                    Loves catnip and naps. Not fond of children.
+                                                </p>
+                                                <p>
+
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Starfox221's Bio</div>
+                            <div class="panel-body"> A long description about me.
+
+                            </div>
+                        </div></div>
+
+
+                    <div id="push"></div>
+                </div>
+            </div>
         </div>
         <div class="tab-pane fade" id="basic" role="tabpanel" aria-labelledby="basic-tab">
             <form>
@@ -177,6 +349,19 @@
                     </div>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+<!-- Modal image -->
+<div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">X</span>
+                </button>
+                <img class="img-fluid" src="${contextPath}/preview/avatar" />
+            </div>
         </div>
     </div>
 </div>
@@ -329,6 +514,13 @@
             }
         });
     }
+    $(document).ready(function() {
+        $.fn.editable.defaults.mode = 'inline';
+        $('#usernotes').editable.defaults.emptytext = 'Edit user notes'
+        //make usernotes editable
+        $('#usernotes').editable();
+
+    });
 </script>
 </body>
 </html>
