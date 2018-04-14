@@ -21,6 +21,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -54,6 +55,16 @@ public class UserServiceImpl implements UserService {
     public void save(Picture picture) {
         pictureRepository.save(picture);
     }
+
+//    @Override
+//    public List<Picture> listPictures() {
+//        pictureRepository.list();
+//    }
+//
+//    @Override
+//    public Picture getFile(Long id) {
+//        pictureRepository.get(id);
+//    }
 
     @Override
     public User findByUsername(String username) {

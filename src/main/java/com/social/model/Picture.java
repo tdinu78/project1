@@ -2,8 +2,12 @@ package com.social.model;
 
 
 import com.social.enums.LifeCycle;
+import com.social.enums.PictureKind;
 import com.social.enums.PictureType;
+
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "picture")
@@ -12,6 +16,8 @@ public class Picture {
     private User user;
     private PictureType type;
     private String picturePath;
+    private PictureKind pictureKind;
+    private Set<User> permittedUsers;
     private LifeCycle lifecycle;
 
     @Id
@@ -25,7 +31,6 @@ public class Picture {
     }
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
     }
@@ -56,5 +61,22 @@ public class Picture {
 
     public void setPicturePath(String picturePath) {
         this.picturePath = picturePath;
+    }
+
+    public PictureKind getPictureKind() {
+        return pictureKind;
+    }
+
+    public void setPictureKind(PictureKind pictureKind) {
+        this.pictureKind = pictureKind;
+    }
+
+    @ManyToMany(mappedBy = "permittedPictures")
+    public Set<User> getPermittedUsers() {
+        return permittedUsers;
+    }
+
+    public void setPermittedUsers(Set<User> permittedUsers) {
+        this.permittedUsers = permittedUsers;
     }
 }

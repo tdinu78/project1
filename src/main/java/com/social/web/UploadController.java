@@ -1,5 +1,7 @@
 package com.social.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.social.enums.PictureKind;
 import com.social.enums.PictureType;
 import com.social.model.Picture;
 import com.social.service.SecurityService;
@@ -7,15 +9,22 @@ import com.social.service.UserService;
 import org.apache.catalina.core.ApplicationPart;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.hibernate.jpa.internal.EntityManagerFactoryImpl;
+import org.hibernate.jpa.internal.EntityManagerImpl;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +34,7 @@ import java.io.*;
 import java.math.BigInteger;
 import java.nio.file.*;
 import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 
 @MultipartConfig
@@ -39,6 +46,9 @@ public class UploadController{
 
     @Autowired
     private UserService userService;
+
+    @PersistenceContext
+    private EntityManager em;
 
     @GetMapping("/upload")
     public String fileUploadForm(Model model) {
@@ -52,7 +62,7 @@ public class UploadController{
 
         if (ServletFileUpload.isMultipartContent(request)) {
             String fileName = null;
-            String subfolder = "public";
+            PictureKind pKind = PictureKind.PUBLIC;
             PictureType type;
             String userName = securityService.findLoggedInUsername();
             if (userName != null) {
@@ -62,9 +72,9 @@ public class UploadController{
                 Collection<Part> parts = request.getParts();
                 String result = ((ApplicationPart) parts.stream().filter(a -> a.getName().equals("img_type")).findFirst().orElseGet(() -> parts.iterator().next())).getString("UTF-8");
                 if (result != null && result.equals("avatar")) {
-                    subfolder = "avatar";
+                    pKind = PictureKind.AVATAR;
                 } else if (result != null && result.equals("private")) {
-                    subfolder = "private";
+                    pKind = PictureKind.PRIVATE;
                 }
                 Part filePart = parts.stream().filter(a -> a.getSubmittedFileName() != null).findFirst().orElseGet(() -> parts.iterator().next());
                 if (filePart != null && filePart.getSubmittedFileName() != null) {
@@ -73,7 +83,7 @@ public class UploadController{
                         fileName = new BigInteger(130, new SecureRandom()).toString(32) +
                                 parseFileFormat(filePart.getSubmittedFileName());
                     }
-                    uploadDir = Paths.get(rootDir.toString(), "upload", userName, subfolder);
+                    uploadDir = Paths.get(rootDir.toString(), "upload", userName);
                     Files.createDirectories(uploadDir);
                     uploadedFile = Paths.get(uploadDir.toString(), fileName);
                     try (InputStream input = filePart.getInputStream();
@@ -84,6 +94,7 @@ public class UploadController{
                     picture.setPicturePath(uploadedFile.toAbsolutePath().toString());
                     picture.setType(type);
                     picture.setUser(userService.findByUsername(userName));
+                    picture.setPictureKind(pKind);
                     userService.save(picture);
                 }
             }
@@ -101,17 +112,45 @@ public class UploadController{
        int a=0;
     }
 
-    @GetMapping(value = "/preview/{type}")
-    public void previewFiles(@PathVariable("type") String type, HttpServletResponse response) {
+    @RequestMapping(value = {"/myPicturesList/{criteria}"})
+    public void listBooks(@PathVariable("criteria") String criteria, HttpServletResponse response) {
+        PictureKind kind = null;
+        Query query;
+        if(criteria.equalsIgnoreCase("avatar")){
+            kind = PictureKind.AVATAR;
+        }else if(criteria.equalsIgnoreCase("public")){
+            kind = PictureKind.PUBLIC;
+        }else if(criteria.equalsIgnoreCase("private")){
+            kind = PictureKind.PRIVATE;
+        }
+        if(kind==null){
+            query= em.createQuery("SELECT pics FROM Picture pics Join pics.user u WHERE u.username=:username");
+        }else {
+            query = em.createQuery("SELECT pics FROM Picture pics Join pics.user u WHERE u.username=:username and pics.pictureKind=:kind");
+        }
+        String userName = securityService.findLoggedInUsername();
+        query.setParameter("username",userName);
+        List<Picture> result = query.getResultList();
+        Map resMap = new HashMap();
+        for(Picture pic : result){
+            resMap.put("pKind",pic.getPictureKind());
+            resMap.put("pPath",pic.getPicturePath().replace("C:\\upload",""));
+        }
+        JSONObject jsonObject = new JSONObject(resMap);
+        try {
+            response.getWriter().print(jsonObject);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        response.setContentType("application/json");
+    }
+
+    @GetMapping(value = "/preview/{path}")
+    public void previewFiles(@PathVariable("path") String path, HttpServletResponse response) {
         Path rootDir = FileSystems.getDefault().getRootDirectories().iterator().next();
         String userName = securityService.findLoggedInUsername();
-        String subfolder = "public";
-        if (type != null && type.equals("avatar")) {
-            subfolder = "avatar";
-        } else if (type != null && type.equals("private")) {
-            subfolder = "private";
-        }
-        Path uploadDir = Paths.get(rootDir.toString(), "upload", userName, subfolder);
+        //check permissions for private pics
+        Path uploadDir = Paths.get(rootDir.toString(), "upload", path);
         Path file;
         InputStream inputStream = null;
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(uploadDir)) {

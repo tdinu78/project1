@@ -45,6 +45,7 @@ public class User {
     private Statistics statistics;
     private Set<Message> messagesSent;
     private Set<Message> messagesReceived;
+    private Set<Picture>permittedPictures;
 
 
     @Id
@@ -90,6 +91,16 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "user_perm", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "picture_id"))
+    public Set<Picture> getPermittedPictures() {
+        return permittedPictures;
+    }
+
+    public void setPermittedPictures(Set<Picture> permittedPictures) {
+        this.permittedPictures = permittedPictures;
     }
 
     public ZonedDateTime getMemeberSince() {

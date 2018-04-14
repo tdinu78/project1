@@ -19,6 +19,15 @@
 <script src="${contextPath}/resources/bootstrap-fileinput-master/js/locales/${locale}.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqSg7Kv-BPD0JKmLzsnKeepdhJWTeaPOc&signed_in=true&libraries=places&callback=initMap" async defer></script>
+<script type="text/javascript">
+        $.fn.editable.defaults.mode = 'inline';
+        $('#usernotes').editable.defaults.emptytext = 'Edit user notes'
+        //make usernotes editable
+        $('#usernotes').editable();
+        $.get("${contextPath}/myPicturesList/all", function(filelist, status){
+            alert("Data: " + filelist + "\nStatus: " + status);
+        }.bind(this));
+</script>
 <div class="container mt-5">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
@@ -41,7 +50,7 @@
                 <div class="row">
                     <div class="bg-transparent col-sm-4">
                             <a href="" data-toggle="modal" data-target="#productModal">
-                                <img class="img-fluid img-thumbnail" style="object-fit: cover; height: 260px; width: 260px" src="${contextPath}/preview/avatar"/>
+                                <img class="img-fluid img-thumbnail" style="object-fit: cover; height: 260px; width: 260px" src="${contextPath}/preview/${fileList}"/>
                             </a>
                     </div>
                     <div class="col-sm-8">
@@ -97,6 +106,9 @@
                             </li>
                         </ul>
                         <div class="panel panel-default">
+                            <c:forEach items="${fileList}" var="dataFile" varStatus="loopCounter">
+                                    <img class="img-fluid img-thumbnail" style="object-fit: cover; height: 260px; width: 260px" src="${contextPath}/preview/${dataFile.value}"/>
+                            </c:forEach>
                             <div class="panel-heading">Insured / Bonded?
 
                             </div>
@@ -367,6 +379,15 @@
 </div>
 <jsp:include page="common/footer.jsp"/>
 <script type="text/javascript">
+    window.onload = function() {
+        $.fn.editable.defaults.mode = 'inline';
+        $('#usernotes').editable.defaults.emptytext = 'Edit user notes'
+        //make usernotes editable
+        $('#usernotes').editable();
+        $.get("${contextPath}/myPicturesList/all", function(filelist, status){
+            alert("Data: " + filelist + "\nStatus: " + status);
+        }.bind(this));
+    };
     $("#avatar-1").fileinput({
         theme: 'fa',
         language: '${locale}',
@@ -519,6 +540,9 @@
         $('#usernotes').editable.defaults.emptytext = 'Edit user notes'
         //make usernotes editable
         $('#usernotes').editable();
+        $.get("${contextPath}/myPicturesList/all", function(filelist, status){
+            alert("Data: " + filelist + "\nStatus: " + status);
+        }.bind(this));
 
     });
 </script>
