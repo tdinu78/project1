@@ -1,6 +1,7 @@
 package com.social.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.social.enums.LifeCycle;
 import com.social.enums.PictureKind;
 import com.social.enums.PictureType;
 import com.social.model.Picture;
@@ -35,6 +36,7 @@ import java.math.BigInteger;
 import java.nio.file.*;
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 @MultipartConfig
@@ -95,6 +97,7 @@ public class UploadController{
                     picture.setType(type);
                     picture.setUser(userService.findByUsername(userName));
                     picture.setPictureKind(pKind);
+                    picture.setLifecycle(LifeCycle.CREATED);
                     userService.save(picture);
                 }
             }
@@ -107,13 +110,38 @@ public class UploadController{
         out.close();
     }
 
-    @PostMapping(value = "/removeFile/{fn}")
-    public void removeFile(@PathVariable("fn") String fileName, Model model) {
-       int a=0;
+    @PostMapping(value = "/removeFile", params="file")
+    public void removeFile(@RequestParam("file") String fileName, HttpServletResponse response) {
+        Query query;
+        String userName = securityService.findLoggedInUsername();
+        Path rootDir = FileSystems.getDefault().getRootDirectories().iterator().next();
+        String path = Paths.get(rootDir.toString(), "upload", userName, fileName).toString();
+        query= em.createQuery("SELECT pics FROM Picture pics Join pics.user u WHERE u.username=:username and pics.picturePath=:path");
+        query.setParameter("username", userName);
+        query.setParameter("path", path);
+        Picture result = (Picture) query.getResultList().get(0);
+        result.setLifecycle(LifeCycle.DELETED);
+        userService.save(result);
+    }
+    @PostMapping(value = "/downloadFile", params="file")
+    public void downloadFile(@RequestParam("file") String fileName, HttpServletResponse response) {
+        String userName = securityService.findLoggedInUsername();
+        Path rootDir = FileSystems.getDefault().getRootDirectories().iterator().next();
+        Path file = Paths.get(rootDir.toString(), "upload", userName, fileName);
+        if(file.toFile().exists()) {
+            InputStream inputStream;
+            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+            try {
+                inputStream = Files.newInputStream(file);
+                IOUtils.copy(inputStream, response.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @RequestMapping(value = {"/myPicturesList/{criteria}"})
-    public void listBooks(@PathVariable("criteria") String criteria, HttpServletResponse response) {
+    public void listPictures(@PathVariable("criteria") String criteria, HttpServletResponse response) {
         PictureKind kind = null;
         Query query;
         if(criteria.equalsIgnoreCase("avatar")){
@@ -131,42 +159,55 @@ public class UploadController{
         String userName = securityService.findLoggedInUsername();
         query.setParameter("username",userName);
         List<Picture> result = query.getResultList();
+        JSONArray res = new JSONArray();
         Map resMap = new HashMap();
-        for(Picture pic : result){
-            resMap.put("pKind",pic.getPictureKind());
-            resMap.put("pPath",pic.getPicturePath().replace("C:\\upload",""));
+        Picture avatar = result.stream().filter(a->(a.getPictureKind().equals(PictureKind.AVATAR))).findFirst().orElseGet(null);
+        if(avatar!=null) {
+            resMap.put("pKind", avatar.getPictureKind());
+            resMap.put("pPath", avatar.getPicturePath().replace("C:\\upload", "").replaceAll("\\\\","/"));
         }
         JSONObject jsonObject = new JSONObject(resMap);
+        res.put(jsonObject);
+        resMap = new HashMap();
+        List<Picture> publicPics = result.stream().filter(a->(a.getPictureKind().equals(PictureKind.PUBLIC))).collect(Collectors.toList());
+        if(publicPics!=null && publicPics.size()>0) {
+            resMap.put("pKind", PictureKind.PUBLIC);
+            resMap.put("pPath",publicPics.stream().map(a->a.getPicturePath().replace("C:\\upload","")
+            .replaceAll("\\\\","/")).collect(Collectors.toList()));
+        }
+        res.put(resMap);
+        resMap = new HashMap();
+        List<Picture> privatePics = result.stream().filter(a->(a.getPictureKind().equals(PictureKind.PRIVATE))).collect(Collectors.toList());
+        if(privatePics!=null && privatePics.size()>0) {
+            resMap.put("pKind", PictureKind.PRIVATE);
+            resMap.put("pPath",publicPics.stream().map(a->a.getPicturePath().replace("C:\\upload","")
+            .replaceAll("\\\\","/")).collect(Collectors.toList()));
+        }
+        res.put(resMap);
         try {
-            response.getWriter().print(jsonObject);
+            response.getWriter().print(res);
         } catch (IOException e) {
             e.printStackTrace();
         }
         response.setContentType("application/json");
     }
 
-    @GetMapping(value = "/preview/{path}")
-    public void previewFiles(@PathVariable("path") String path, HttpServletResponse response) {
+    @GetMapping(value = "/preview", params="path")
+    public void previewFiles(@RequestParam("path") String path, HttpServletResponse response) {
         Path rootDir = FileSystems.getDefault().getRootDirectories().iterator().next();
         String userName = securityService.findLoggedInUsername();
         //check permissions for private pics
         Path uploadDir = Paths.get(rootDir.toString(), "upload", path);
-        Path file;
-        InputStream inputStream = null;
-        try (DirectoryStream<Path> stream = Files.newDirectoryStream(uploadDir)) {
-            for (Path currentFile: stream) {
-                file=currentFile;
+        Path file=Paths.get(uploadDir.toUri());
+        if(file.toFile().exists()) {
+            InputStream inputStream;
+            response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+            try {
                 inputStream = Files.newInputStream(file);
                 IOUtils.copy(inputStream, response.getOutputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (IOException | DirectoryIteratorException x) {
-            x.printStackTrace();
-        }
-        response.setContentType(MediaType.IMAGE_JPEG_VALUE);
-        try {
-            IOUtils.copy(inputStream, response.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

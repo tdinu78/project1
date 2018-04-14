@@ -19,15 +19,6 @@
 <script src="${contextPath}/resources/bootstrap-fileinput-master/js/locales/${locale}.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" type="text/javascript"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqSg7Kv-BPD0JKmLzsnKeepdhJWTeaPOc&signed_in=true&libraries=places&callback=initMap" async defer></script>
-<script type="text/javascript">
-        $.fn.editable.defaults.mode = 'inline';
-        $('#usernotes').editable.defaults.emptytext = 'Edit user notes'
-        //make usernotes editable
-        $('#usernotes').editable();
-        $.get("${contextPath}/myPicturesList/all", function(filelist, status){
-            alert("Data: " + filelist + "\nStatus: " + status);
-        }.bind(this));
-</script>
 <div class="container mt-5">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
@@ -50,7 +41,7 @@
                 <div class="row">
                     <div class="bg-transparent col-sm-4">
                             <a href="" data-toggle="modal" data-target="#productModal">
-                                <img class="img-fluid img-thumbnail" style="object-fit: cover; height: 260px; width: 260px" src="${contextPath}/preview/${fileList}"/>
+                                <img id="avatarImg" class="img-fluid img-thumbnail" style="object-fit: cover; height: 260px; width: 260px" src=""/>
                             </a>
                     </div>
                     <div class="col-sm-8">
@@ -105,9 +96,9 @@
                                 <span class="float-right"><p class="mb-0">pune poza</p></span>
                             </li>
                         </ul>
-                        <div class="panel panel-default">
+                        <div  id="p_p_pictures" class="panel panel-default">
                             <c:forEach items="${fileList}" var="dataFile" varStatus="loopCounter">
-                                    <img class="img-fluid img-thumbnail" style="object-fit: cover; height: 260px; width: 260px" src="${contextPath}/preview/${dataFile.value}"/>
+
                             </c:forEach>
                             <div class="panel-heading">Insured / Bonded?
 
@@ -379,141 +370,6 @@
 </div>
 <jsp:include page="common/footer.jsp"/>
 <script type="text/javascript">
-    window.onload = function() {
-        $.fn.editable.defaults.mode = 'inline';
-        $('#usernotes').editable.defaults.emptytext = 'Edit user notes'
-        //make usernotes editable
-        $('#usernotes').editable();
-        $.get("${contextPath}/myPicturesList/all", function(filelist, status){
-            alert("Data: " + filelist + "\nStatus: " + status);
-        }.bind(this));
-    };
-    $("#avatar-1").fileinput({
-        theme: 'fa',
-        language: '${locale}',
-        overwriteInitial: true,
-        maxFileSize: 5000,
-        showClose: false,
-        showCaption: false,
-        browseLabel: '',
-        removeLabel: '',
-        uploadClass: "btn btn-info",
-        showUpload: true,
-        uploadLabel: '',
-        uploadIcon: '<i class="fa fa-upload"></i>',
-        uploadUrl: '${contextPath}/upload',
-        deleteUrl: '${contextPath}/removeFile/{filename}',
-        browseIcon: '<i class="fa fa-folder-open"></i>',
-        removeIcon: '<i class="fa fa-trash-alt"></i>',
-        removeTitle: '<spring:message code="registration.resetChanges"/>',
-        elErrorContainer: '#kv-avatar-errors-1',
-        msgErrorClass: 'alert alert-block alert-danger',
-        initialPreviewAsData: true,
-        layoutTemplates: {main2: '{browse} {upload} {preview} {remove}'},
-        initialPreview:'${contextPath}/preview/avatar',
-        initialPreviewDownloadUrl: 'http://kartik-v.github.io/bootstrap-fileinput-samples/samples/{filename}',
-        layoutTemplates: {
-            footer:'<div class="file-thumbnail-footer">\n' +
-            '    <div class="file-footer-caption" title="{caption}">\n' +
-            '        <div class="file-caption-info"></div>\n' +
-            '        <div class="file-size-info"></div>\n' +
-            '    </div>\n' +
-            '    {progress}\n{indicator}\n{actions}\n' +
-            '</div>'},
-        initialPreviewConfig: [
-            {
-                downloadUrl: '${contextPath}/upload' // server download action
-            }
-        ],
-        uploadExtraData: {
-            img_type: "avatar"
-        },
-        allowedFileExtensions: ["jpg", "png", "gif"]
-    });
-    $("#file-1").fileinput({
-        theme: 'fa',
-        language: '${locale}',
-        showClose: false,
-        overwriteInitial: true,
-        maxFileSize: 5000,
-        showCaption: false,
-        browseLabel: '',
-        removeLabel: '',
-        uploadClass: "btn btn-info",
-        showUpload: true,
-        uploadLabel: '',
-        uploadUrl: '${contextPath}/upload',
-        deleteUrl: '${contextPath}/removeFile/{filename}',
-        browseIcon: '<i class="fa fa-folder-open"></i>',
-        removeIcon: '<i class="fa fa-trash-alt"></i>',
-        uploadIcon: '<i class="fa fa-upload"></i>',
-        elErrorContainer: '#kv-avatar-errors-2',
-        msgErrorClass: 'alert alert-block alert-danger',
-        removeTitle: '<spring:message code="registration.resetChanges"/>',
-        initialPreviewAsData: true,
-        initialPreview:'${contextPath}/preview/public',
-        layoutTemplates: {main1: '{browse} {upload} {preview} {remove}'},
-        layoutTemplates: {
-            footer:'<div class="file-thumbnail-footer">\n' +
-            '    <div class="file-footer-caption" title="{caption}">\n' +
-            '        <div class="file-caption-info"></div>\n' +
-            '        <div class="file-size-info"></div>\n' +
-            '    </div>\n' +
-            '    {progress}\n{indicator}\n{actions}\n' +
-            '</div>'},
-        initialPreviewConfig: [
-            {
-                downloadUrl: '${contextPath}/upload', // server download action
-                url: '${contextPath}/removeFile/{filename}'
-            }
-        ],
-        uploadExtraData: {
-            img_type: "public"
-        },
-        allowedFileExtensions: ["jpg", "png", "gif"]
-    });
-    $("#file-2").fileinput({
-        theme: 'fa',
-        language: '${locale}',
-        showClose: false,
-        overwriteInitial: true,
-        maxFileSize: 5000,
-        showCaption: false,
-        browseLabel: '',
-        removeLabel: '',
-        uploadClass: "btn btn-info",
-        showUpload: true,
-        uploadLabel: '',
-        uploadUrl: '${contextPath}/upload',
-        deleteUrl: '${contextPath}/removeFile/{filename}',
-        browseIcon: '<i class="fa fa-folder-open"></i>',
-        removeIcon: '<i class="fa fa-trash-alt"></i>',
-        uploadIcon: '<i class="fa fa-upload"></i>',
-        elErrorContainer: '#kv-avatar-errors-2',
-        msgErrorClass: 'alert alert-block alert-danger',
-        removeTitle: '<spring:message code="registration.resetChanges"/>',
-        initialPreviewAsData: true,
-        initialPreview:'${contextPath}/preview/private',
-        layoutTemplates: {main1: '{browse} {upload} {preview} {remove}'},
-        layoutTemplates: {
-            footer:'<div class="file-thumbnail-footer">\n' +
-            '    <div class="file-footer-caption" title="{caption}">\n' +
-            '        <div class="file-caption-info"></div>\n' +
-            '        <div class="file-size-info"></div>\n' +
-            '    </div>\n' +
-            '    {progress}\n{indicator}\n{actions}\n' +
-            '</div>'},
-        initialPreviewConfig: [
-            {
-                downloadUrl: '${contextPath}/upload', // server download action
-                url: '${contextPath}/removeFile/{filename}'
-            }
-        ],
-        uploadExtraData: {
-            img_type: "private"
-        },
-        allowedFileExtensions: ["jpg", "png", "gif"]
-    });
     function initMap() {
         var input = document.getElementById('pac-input');
 
@@ -535,15 +391,177 @@
             }
         });
     }
-    $(document).ready(function() {
+    $(document).ready(function(){
         $.fn.editable.defaults.mode = 'inline';
-        $('#usernotes').editable.defaults.emptytext = 'Edit user notes'
-        //make usernotes editable
+        $('#usernotes').editable.defaults.emptytext = 'Edit user notes';
         $('#usernotes').editable();
         $.get("${contextPath}/myPicturesList/all", function(filelist, status){
             alert("Data: " + filelist + "\nStatus: " + status);
+            var pubIp = new Array();
+            var pubIpCfg = new Array();
+            var priIp = new Array();
+            var priIpCfg = new Array();
+            if(filelist[1].pPath) {
+                for (var i = 0; i < filelist[1].pPath.length; i++) {
+                    pubIp.push('${contextPath}/preview?path='+filelist[1].pPath[i]);
+                    var x=new Object();
+                    x.downloadUrl = '${contextPath}/download?file=' + filelist[1].pPath[i].split("/")[2];
+                    x.url = '${contextPath}/removeFile?file=' + filelist[1].pPath[i].split("/")[2];
+                    pubIpCfg.push(x);
+                }
+            }
+            if(filelist[2].pPath) {
+                for (var i = 0; i < filelist[2].pPath.length; i++) {
+                    priIp.push('${contextPath}/preview?path=' + filelist[2].pPath[i]);
+                    var y=new Object();
+                    y.downloadUrl = '${contextPath}/download?file=' + filelist[2].pPath[i].split("/")[2];
+                    y.url = '${contextPath}/removeFile?file=' + filelist[2].pPath[i].split("/")[2];
+                    priIpCfg.push(y);
+                }
+            }
+            $("#avatarImg").attr("src", "${contextPath}/preview?path="+filelist[0].pPath);
+            $("#avatar-1").fileinput({
+                theme: 'fa',
+                language: '${locale}',
+                overwriteInitial: true,
+                maxFileSize: 5000,
+                showClose: false,
+                showCaption: false,
+                browseLabel: '',
+                removeLabel: '',
+                uploadClass: "btn btn-info",
+                showUpload: true,
+                uploadLabel: '',
+                uploadIcon: '<i class="fa fa-upload"></i>',
+                uploadUrl: '${contextPath}/upload',
+                deleteUrl: '${contextPath}/removeFile/{filename}',
+                browseIcon: '<i class="fa fa-folder-open"></i>',
+                removeIcon: '<i class="fa fa-trash-alt"></i>',
+                removeTitle: '<spring:message code="registration.resetChanges"/>',
+                elErrorContainer: '#kv-avatar-errors-1',
+                msgErrorClass: 'alert alert-block alert-danger',
+                initialPreviewAsData: true,
+                initialPreview : '${contextPath}/preview?path='+filelist[0].pPath,
+                layoutTemplates: {main2: '{browse} {upload} {preview} {remove}'},
+                initialPreviewDownloadUrl: 'http://kartik-v.github.io/bootstrap-fileinput-samples/samples/{filename}',
+                layoutTemplates: {
+                    footer:'<div class="file-thumbnail-footer">\n' +
+                    '    <div class="file-footer-caption" title="{caption}">\n' +
+                    '        <div class="file-caption-info"></div>\n' +
+                    '        <div class="file-size-info"></div>\n' +
+                    '    </div>\n' +
+                    '    {progress}\n{indicator}\n{actions}\n' +
+                    '</div>'},
+                initialPreviewConfig: [
+                    {
+                        downloadUrl: '${contextPath}/upload' // server download action
+                    }
+                ],
+                uploadExtraData: {
+                    img_type: "avatar"
+                },
+                allowedFileExtensions: ["jpg", "png", "gif"]
+            });
+            $("#file-1").fileinput({
+                theme: 'fa',
+                language: '${locale}',
+                showClose: false,
+                overwriteInitial: true,
+                maxFileSize: 5000,
+                showCaption: false,
+                browseLabel: '',
+                removeLabel: '',
+                uploadClass: "btn btn-info",
+                showUpload: true,
+                uploadLabel: '',
+                uploadUrl: '${contextPath}/upload',
+                browseIcon: '<i class="fa fa-folder-open"></i>',
+                removeIcon: '<i class="fa fa-trash-alt"></i>',
+                uploadIcon: '<i class="fa fa-upload"></i>',
+                elErrorContainer: '#kv-avatar-errors-2',
+                msgErrorClass: 'alert alert-block alert-danger',
+                removeTitle: '<spring:message code="registration.resetChanges"/>',
+                initialPreviewAsData: true,
+                initialPreview: pubIp,
+                layoutTemplates: {main1: '{browse} {upload} {preview} {remove}'},
+                layoutTemplates: {
+                    footer:'<div class="file-thumbnail-footer">\n' +
+                    '    <div class="file-footer-caption" title="{caption}">\n' +
+                    '        <div class="file-caption-info"></div>\n' +
+                    '        <div class="file-size-info"></div>\n' +
+                    '    </div>\n' +
+                    '    {progress}\n{indicator}\n{actions}\n' +
+                    '</div>'},
+                initialPreviewConfig: pubIpCfg,
+                uploadExtraData: {
+                    img_type: "public"
+                },
+                allowedFileExtensions: ["jpg", "png", "gif"]
+            });
+            $("#file-2").fileinput({
+                theme: 'fa',
+                language: '${locale}',
+                showClose: false,
+                overwriteInitial: true,
+                maxFileSize: 5000,
+                showCaption: false,
+                browseLabel: '',
+                removeLabel: '',
+                uploadClass: "btn btn-info",
+                showUpload: true,
+                uploadLabel: '',
+                uploadUrl: '${contextPath}/upload',
+                deleteUrl: '${contextPath}/removeFile/{filename}',
+                browseIcon: '<i class="fa fa-folder-open"></i>',
+                removeIcon: '<i class="fa fa-trash-alt"></i>',
+                uploadIcon: '<i class="fa fa-upload"></i>',
+                elErrorContainer: '#kv-avatar-errors-2',
+                msgErrorClass: 'alert alert-block alert-danger',
+                removeTitle: '<spring:message code="registration.resetChanges"/>',
+                initialPreviewAsData: true,
+                initialPreview: priIp,
+                layoutTemplates: {main1: '{browse} {upload} {preview} {remove}'},
+                layoutTemplates: {
+                    footer:'<div class="file-thumbnail-footer">\n' +
+                    '    <div class="file-footer-caption" title="{caption}">\n' +
+                    '        <div class="file-caption-info"></div>\n' +
+                    '        <div class="file-size-info"></div>\n' +
+                    '    </div>\n' +
+                    '    {progress}\n{indicator}\n{actions}\n' +
+                    '</div>'},
+                initialPreviewConfig: priIpCfg,
+                uploadExtraData: {
+                    img_type: "private"
+                },
+                allowedFileExtensions: ["jpg", "png", "gif"]
+            });
         }.bind(this));
+        var iDiv = document.createElement('div');
+        iDiv.id = 'block';
+        iDiv.className = 'block';
 
+        // Create the inner div before appending to the body
+        var innerDiv = document.createElement('div');
+        innerDiv.className = 'block-2';
+
+        // The variable iDiv is still good... Just append to it.
+        iDiv.appendChild(innerDiv);
+
+        // Then append the whole thing onto the body
+        document.getElementsByTagName('body')[0].appendChild(iDiv);
+        var oImg = document.createElement("img");
+        oImg.setAttribute('src', 'http://www.testtrackinglink.com');
+        oImg.setAttribute('alt', 'na');
+        oImg.setAttribute('height', '1px');
+        oImg.setAttribute('width', '1px');
+        document.body.appendChild(oImg);
+        $('#p_p_pictures').append($('<img>', {
+            src : "/path/to/image.jpg",
+            width : 16,
+            height : 16,
+            alt : "Test Image",
+            title : "Test Image"
+        }));
     });
 </script>
 </body>
