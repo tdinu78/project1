@@ -432,24 +432,19 @@
                 language: '${locale}',
                 overwriteInitial: true,
                 maxFileSize: 5000,
+                maxFileCount: 1,
                 showClose: false,
                 showCaption: false,
                 browseLabel: '',
-                removeLabel: '',
-                uploadClass: "btn btn-info",
-                showUpload: true,
-                uploadLabel: '',
-                uploadIcon: '<i class="fa fa-upload"></i>',
+                showUpload: false,
+                showRemove: false,
                 uploadUrl: '${contextPath}/upload',
                 deleteUrl: avRem,
                 browseIcon: '<i class="fa fa-folder-open"></i>',
-                removeIcon: '<i class="fa fa-trash-alt"></i>',
-                removeTitle: '<spring:message code="registration.resetChanges"/>',
                 elErrorContainer: '#kv-avatar-errors-1',
                 msgErrorClass: 'alert alert-block alert-danger',
                 initialPreviewAsData: true,
                 initialPreview : avIp,
-                layoutTemplates: {main2: '{browse} {upload} {preview} {remove}'},
                 layoutTemplates: {
                     footer:'<div class="file-thumbnail-footer">\n' +
                     '    <div class="file-footer-caption" title="{caption}">\n' +
@@ -458,12 +453,7 @@
                     '    </div>\n' +
                     '    {progress}\n{indicator}\n{actions}\n' +
                     '</div>'},
-                initialPreviewConfig: [
-                    {
-                        url:avRem,
-                        //downloadUrl: avDow // server download action
-                    }
-                ],
+
                 uploadExtraData: {
                     img_type: "avatar"
                 },
@@ -475,6 +465,7 @@
                 showClose: false,
                 overwriteInitial: true,
                 maxFileSize: 5000,
+                maxFileCount: 5,
                 showCaption: false,
                 browseLabel: '',
                 removeLabel: '',
@@ -490,7 +481,6 @@
                 removeTitle: '<spring:message code="registration.resetChanges"/>',
                 initialPreviewAsData: true,
                 initialPreview: pubIp,
-                layoutTemplates: {main1: '{browse} {upload} {preview} {remove}'},
                 layoutTemplates: {
                     footer:'<div class="file-thumbnail-footer">\n' +
                     '    <div class="file-footer-caption" title="{caption}">\n' +
@@ -511,6 +501,7 @@
                 showClose: false,
                 overwriteInitial: true,
                 maxFileSize: 5000,
+                maxFileCount: 5,
                 showCaption: false,
                 browseLabel: '',
                 removeLabel: '',
@@ -526,7 +517,6 @@
                 removeTitle: '<spring:message code="registration.resetChanges"/>',
                 initialPreviewAsData: true,
                 initialPreview: priIp,
-                layoutTemplates: {main1: '{browse} {upload} {preview} {remove}'},
                 layoutTemplates: {
                     footer:'<div class="file-thumbnail-footer">\n' +
                     '    <div class="file-footer-caption" title="{caption}">\n' +
