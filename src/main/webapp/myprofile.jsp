@@ -396,16 +396,23 @@
         $('#usernotes').editable.defaults.emptytext = 'Edit user notes';
         $('#usernotes').editable();
         $.get("${contextPath}/myPicturesList/all", function(filelist, status){
-            alert("Data: " + filelist + "\nStatus: " + status);
             var pubIp = new Array();
             var pubIpCfg = new Array();
             var priIp = new Array();
             var priIpCfg = new Array();
+            var avRem="";
+            var avDow="";
+            var avIp="${contextPath}/resources/img/default_avatar_male.jpg";
+            if(filelist[0].pPath) {
+                avRem='${contextPath}/removeFile?file=' + filelist[0].pPath.split("/")[2];
+                avDow='${contextPath}/download?file=' + filelist[0].pPath.split("/")[2]
+                avIp='${contextPath}/preview?path='+filelist[0].pPath;
+            }
             if(filelist[1].pPath) {
                 for (var i = 0; i < filelist[1].pPath.length; i++) {
                     pubIp.push('${contextPath}/preview?path='+filelist[1].pPath[i]);
                     var x=new Object();
-                    x.downloadUrl = '${contextPath}/download?file=' + filelist[1].pPath[i].split("/")[2];
+                    //x.downloadUrl = '${contextPath}/download?file=' + filelist[1].pPath[i].split("/")[2];
                     x.url = '${contextPath}/removeFile?file=' + filelist[1].pPath[i].split("/")[2];
                     pubIpCfg.push(x);
                 }
@@ -414,7 +421,7 @@
                 for (var i = 0; i < filelist[2].pPath.length; i++) {
                     priIp.push('${contextPath}/preview?path=' + filelist[2].pPath[i]);
                     var y=new Object();
-                    y.downloadUrl = '${contextPath}/download?file=' + filelist[2].pPath[i].split("/")[2];
+                    //y.downloadUrl = '${contextPath}/download?file=' + filelist[2].pPath[i].split("/")[2];
                     y.url = '${contextPath}/removeFile?file=' + filelist[2].pPath[i].split("/")[2];
                     priIpCfg.push(y);
                 }
@@ -434,16 +441,15 @@
                 uploadLabel: '',
                 uploadIcon: '<i class="fa fa-upload"></i>',
                 uploadUrl: '${contextPath}/upload',
-                deleteUrl: '${contextPath}/removeFile/{filename}',
+                deleteUrl: avRem,
                 browseIcon: '<i class="fa fa-folder-open"></i>',
                 removeIcon: '<i class="fa fa-trash-alt"></i>',
                 removeTitle: '<spring:message code="registration.resetChanges"/>',
                 elErrorContainer: '#kv-avatar-errors-1',
                 msgErrorClass: 'alert alert-block alert-danger',
                 initialPreviewAsData: true,
-                initialPreview : '${contextPath}/preview?path='+filelist[0].pPath,
+                initialPreview : avIp,
                 layoutTemplates: {main2: '{browse} {upload} {preview} {remove}'},
-                initialPreviewDownloadUrl: 'http://kartik-v.github.io/bootstrap-fileinput-samples/samples/{filename}',
                 layoutTemplates: {
                     footer:'<div class="file-thumbnail-footer">\n' +
                     '    <div class="file-footer-caption" title="{caption}">\n' +
@@ -454,7 +460,8 @@
                     '</div>'},
                 initialPreviewConfig: [
                     {
-                        downloadUrl: '${contextPath}/upload' // server download action
+                        url:avRem,
+                        //downloadUrl: avDow // server download action
                     }
                 ],
                 uploadExtraData: {
@@ -511,7 +518,6 @@
                 showUpload: true,
                 uploadLabel: '',
                 uploadUrl: '${contextPath}/upload',
-                deleteUrl: '${contextPath}/removeFile/{filename}',
                 browseIcon: '<i class="fa fa-folder-open"></i>',
                 removeIcon: '<i class="fa fa-trash-alt"></i>',
                 uploadIcon: '<i class="fa fa-upload"></i>',

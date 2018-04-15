@@ -122,7 +122,19 @@ public class UploadController{
         Picture result = (Picture) query.getResultList().get(0);
         result.setLifecycle(LifeCycle.DELETED);
         userService.save(result);
+        response.setContentType("application/json");
+        PrintWriter out = null;
+        try {
+            out = response.getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        JSONObject json=new JSONObject();
+        json.put("","");
+        out.print(json);
+        out.close();
     }
+
     @PostMapping(value = "/downloadFile", params="file")
     public void downloadFile(@RequestParam("file") String fileName, HttpServletResponse response) {
         String userName = securityService.findLoggedInUsername();
@@ -151,20 +163,22 @@ public class UploadController{
         }else if(criteria.equalsIgnoreCase("private")){
             kind = PictureKind.PRIVATE;
         }
+        String userName = securityService.findLoggedInUsername();
         if(kind==null){
-            query= em.createQuery("SELECT pics FROM Picture pics Join pics.user u WHERE u.username=:username");
+            query= em.createQuery("SELECT pics FROM Picture pics Join pics.user u WHERE u.username=:username AND pics.lifecycle<>:deleted");
         }else {
             query = em.createQuery("SELECT pics FROM Picture pics Join pics.user u WHERE u.username=:username and pics.pictureKind=:kind");
+            query.setParameter("kind",kind);
         }
-        String userName = securityService.findLoggedInUsername();
         query.setParameter("username",userName);
+        query.setParameter("deleted",LifeCycle.DELETED);
         List<Picture> result = query.getResultList();
         JSONArray res = new JSONArray();
         Map resMap = new HashMap();
-        Picture avatar = result.stream().filter(a->(a.getPictureKind().equals(PictureKind.AVATAR))).findFirst().orElseGet(null);
-        if(avatar!=null) {
-            resMap.put("pKind", avatar.getPictureKind());
-            resMap.put("pPath", avatar.getPicturePath().replace("C:\\upload", "").replaceAll("\\\\","/"));
+        Optional<Picture> avatar = result.stream().filter(a->(a.getPictureKind().equals(PictureKind.AVATAR))).findFirst();
+        if(avatar.isPresent()) {
+            resMap.put("pKind", avatar.get().getPictureKind());
+            resMap.put("pPath", avatar.get().getPicturePath().replace("C:\\upload", "").replaceAll("\\\\","/"));
         }
         JSONObject jsonObject = new JSONObject(resMap);
         res.put(jsonObject);
